@@ -1,6 +1,8 @@
 package in.ac.igdtuw.mindtheapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +46,14 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicinesAdapter.Medi
                 abstractDBAdapter.deleteMedicine(medicine.getId());
             }
         });
+        holder.cardViewMedicine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent();
+                intent.setClass(context, ScheduleFragment.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -52,12 +62,14 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicinesAdapter.Medi
     }
 
     class MedicinesHolder extends RecyclerView.ViewHolder{
+        CardView cardViewMedicine;
         TextView tVMedicineName;
         ImageButton ibDeleteMedicine;
         public MedicinesHolder(View itemView) {
             super(itemView);
             tVMedicineName=itemView.findViewById(R.id.tvMedicineName);
             ibDeleteMedicine=itemView.findViewById(R.id.ibDeleteMedicine);
+            cardViewMedicine=itemView.findViewById(R.id.cardViewMedicine);
         }
     }
 }

@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             if(position==0){
-                return new ScheduleFragment();
+                return new MainScheduleFragment();
             }
 
             else if(position==1){

@@ -62,8 +62,22 @@ public class AbstractDBAdapter implements DatabaseContract{
         values.put(COLUMN_NAME_TIME_ID, time.getTime_id());
         values.put(COLUMN_NAME_FOREIGN_MEDICINE_ID, time.getMedicine_id());
         values.put(COLUMN_NAME_TIME, time.getTime_string());
+
         open();
         mDatabase.insert(TABLE_NAME_MEDICINE, null, values);
+        close();
+    }
+
+    public void takenMedicine(Medicine.MedicineSchedule schedule){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_DATE_TIME_MEDICINE_ID, schedule.getMedicine_id());
+        values.put(COLUMN_NAME_DATE_TIME_TIME_ID, schedule.getTime_id());
+        values.put(COLUMN_NAME_DATE, schedule.getDate_string());
+        values.put(COLUMN_NAME_DATE_TIME_MEDICINE_NAME, schedule.getMedicine_name());
+        values.put(COLUMN_NAME_DATE_TIME_TIME, schedule.getTime());
+
+        open();
+        mDatabase.insert(TABLE_NAME_DATE_TIME_MEDICINE_TAKEN, null, values);
         close();
     }
 
@@ -132,10 +146,62 @@ public class AbstractDBAdapter implements DatabaseContract{
         return time;
     }
 
+    public ArrayList<Medicine.MedicineSchedule> getScheduleOfMedicine(long medicine_id, String date){
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME_DATE_TIME_MEDICINE_TAKEN + " WHERE " +
+                COLUMN_NAME_DATE_TIME_MEDICINE_ID + " = " + medicine_id  + " and " +
+                COLUMN_NAME_DATE + " = " + date + " ORDER BY " +
+                COLUMN_NAME_DATE_TIME_TIME;
+        ArrayList<Medicine.MedicineSchedule> schedule = new ArrayList<>();
+
+        open();
+        Cursor cursor = mDatabase.rawQuery(selectQuery, null);
+        while (cursor.moveToNext()) {
+
+            Medicine.MedicineSchedule time = new Medicine.MedicineSchedule(
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_DATE_TIME_TIME_ID)),
+                    medicine_id,
+                    date,
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NAME_DATE_TIME_MEDICINE_NAME)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TIME))
+            );
+            schedule.add(time);
+
+        }
+        cursor.close();
+        close();
+        return schedule;
+    }
+
+    public ArrayList<Medicine.MedicineSchedule> getScheduleOfDate(String date){
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME_DATE_TIME_MEDICINE_TAKEN + " WHERE " +
+                COLUMN_NAME_DATE + " = " + date + " ORDER BY " +
+                COLUMN_NAME_TIME + ", " + COLUMN_NAME_MEDICINE_NAME;
+        ArrayList<Medicine.MedicineSchedule> schedule = new ArrayList<>();
+
+        open();
+        Cursor cursor = mDatabase.rawQuery(selectQuery, null);
+        while (cursor.moveToNext()) {
+
+            Medicine.MedicineSchedule time = new Medicine.MedicineSchedule(
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_DATE_TIME_TIME_ID)),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_DATE_TIME_MEDICINE_ID)),
+                    date,
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NAME_DATE_TIME_MEDICINE_NAME)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TIME))
+            );
+            schedule.add(time);
+
+        }
+        cursor.close();
+        close();
+        return schedule;
+    }
+
     public boolean deleteMedicine(long id){
         open();
         boolean deleted = mDatabase.delete(TABLE_NAME_MEDICINE, COLUMN_NAME_MEDICINE_ID + "=" + id, null) > 0;
         deleted &= mDatabase.delete(TABLE_NAME_TIME, COLUMN_NAME_FOREIGN_MEDICINE_ID + "=" + id, null) > 0;
+        deleted &= mDatabase.delete(TABLE_NAME_DATE_TIME_MEDICINE_TAKEN, COLUMN_NAME_DATE_TIME_MEDICINE_ID + "=" + id, null) > 0;
         close();
         return deleted;
     }
@@ -143,6 +209,17 @@ public class AbstractDBAdapter implements DatabaseContract{
     public boolean deleteTime(long id){
         open();
         boolean deleted = mDatabase.delete(TABLE_NAME_TIME, COLUMN_NAME_TIME_ID + "=" + id, null) > 0;
+        close();
+        return deleted;
+    }
+
+    public boolean deleteMedicineTaken(Medicine.MedicineSchedule schedule){
+        open();
+        boolean deleted = mDatabase.delete(TABLE_NAME_TIME,
+                COLUMN_NAME_DATE_TIME_MEDICINE_ID + "=" + schedule.getMedicine_id() + " and " +
+                        COLUMN_NAME_DATE_TIME_TIME_ID + "=" + schedule.getTime_id() + " and " +
+                        COLUMN_NAME_DATE + "=" + schedule.getDate_string()
+                , null) > 0;
         close();
         return deleted;
     }

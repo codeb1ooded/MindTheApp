@@ -35,8 +35,15 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseContract
                 COLUMN_NAME_TIME + " STRING" +
                 ")";
 
+        String CREATE_MEDICINE_TAKEN_TABLE = "CREATE TABLE " + TABLE_NAME_DATE_TIME_MEDICINE_TAKEN + "(" +
+                COLUMN_NAME_DATE_TIME_MEDICINE_ID + " INTEGER ," +
+                COLUMN_NAME_DATE_TIME_TIME_ID + " INTEGER ," +
+                COLUMN_NAME_DATE + " STRING" +
+                ")";
+
         db.execSQL(CREATE_MEDICINE_TABLE);
         db.execSQL(CREATE_TIME_TABLE);
+        db.execSQL(CREATE_MEDICINE_TAKEN_TABLE);
     }
 
     @Override

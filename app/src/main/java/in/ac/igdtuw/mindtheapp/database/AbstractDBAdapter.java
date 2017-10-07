@@ -41,7 +41,7 @@ public class AbstractDBAdapter implements DatabaseContract{
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_MEDICINE_ID, medicine.getId());
         values.put(COLUMN_NAME_MEDICINE_NAME, medicine.getName());
-        values.put(COLUMN_NAME_TIME_ID, medicine.getTimes_in_day());
+        values.put(COLUMN_NAME_TIMES_IN_DAY, medicine.getTimes_in_day());
         values.put(COLUMN_NAME_MEDICINES_LEFT, medicine.getMedicines_left());
         values.put(COLUMN_NAME_DAYS_LEFT, medicine.getDays_left());
         values.put(COLUMN_NAME_DAYS_TOTAL, medicine.getDays_total());
@@ -52,6 +52,7 @@ public class AbstractDBAdapter implements DatabaseContract{
         mDatabase.insert(TABLE_NAME_MEDICINE, null, values);
         close();
 
+        if(medicine.getTimes_of_medicine() != null)
         for(Medicine.Time time: medicine.getTimes_of_medicine()){
             insertTime(time);
         }
@@ -64,7 +65,7 @@ public class AbstractDBAdapter implements DatabaseContract{
         values.put(COLUMN_NAME_TIME, time.getTime_string());
 
         open();
-        mDatabase.insert(TABLE_NAME_MEDICINE, null, values);
+        mDatabase.insert(TABLE_NAME_TIME, null, values);
         close();
     }
 
@@ -80,9 +81,24 @@ public class AbstractDBAdapter implements DatabaseContract{
         mDatabase.insert(TABLE_NAME_DATE_TIME_MEDICINE_TAKEN, null, values);
         close();
     }
-
-    // TODO: 7/10/17 getAllMedicines
     public ArrayList<Medicine> getAllMedicines(){
+        open();
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME_MEDICINE;
+        ArrayList<Medicine> medicines = new ArrayList<>();
+        Cursor cursor = mDatabase.rawQuery(selectQuery, null);
+        while (cursor.moveToNext()) {
+            Medicine medicine = new Medicine(
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_MEDICINE_ID)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NAME_MEDICINE_NAME)),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_TIMES_IN_DAY)),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_MEDICINES_LEFT)),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_DAYS_LEFT)),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_DAYS_TOTAL)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NAME_DISEASE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NAME_MEDICINE_DESCRIPTION)),
+                    null );
+            medicines.add(medicine);
+        }
         return null;
     }
 
@@ -230,10 +246,12 @@ public class AbstractDBAdapter implements DatabaseContract{
     }
 
     public long getNextMedicineId(){
+        open();
         return DatabaseUtils.queryNumEntries(mDatabase,  TABLE_NAME_MEDICINE) + 1;
     }
 
     public long getNextTimeId(){
+        open();
         return DatabaseUtils.queryNumEntries(mDatabase,  TABLE_NAME_TIME) + 1;
     }
 

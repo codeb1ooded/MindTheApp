@@ -170,7 +170,7 @@ public class AbstractDBAdapter implements DatabaseContract{
     public ArrayList<Medicine.MedicineSchedule> getScheduleOfMedicine(long medicine_id, String date){
         String selectQuery = "SELECT  * FROM " + TABLE_NAME_DATE_TIME_MEDICINE_TAKEN + " WHERE " +
                 COLUMN_NAME_DATE_TIME_MEDICINE_ID + " = " + medicine_id  + " and " +
-                COLUMN_NAME_DATE + " = " + date + " ORDER BY " +
+                COLUMN_NAME_DATE + " = \"" + date + "\" ORDER BY " +
                 COLUMN_NAME_DATE_TIME_TIME;
         ArrayList<Medicine.MedicineSchedule> schedule = new ArrayList<>();
 

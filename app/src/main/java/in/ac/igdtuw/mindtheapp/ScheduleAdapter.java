@@ -26,8 +26,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     Context context;
 
     public ScheduleAdapter(ArrayList<MedicineSchedule> medicineScheduleArrayList, ArrayList<Medicine.Time> completedTimes, Context context) {
-        this.medicineScheduleArrayList = new ArrayList<>();
-        this.completedTimes = new ArrayList<>();
+        this.medicineScheduleArrayList = medicineScheduleArrayList;
+        this.completedTimes = completedTimes;
         this.context = context;
     }
 
@@ -38,11 +38,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
     @Override
     public void onBindViewHolder(ScheduleHolder holder, int position) {
-        MedicineSchedule medicineSchedule=medicineScheduleArrayList.get(position);
-        holder.tvTime.setText(medicineSchedule.getTime());
+        Medicine.Time medicine = completedTimes.get(position);
+        holder.tvTime.setText(medicine.getTime_string());
         boolean flag=false;
-        for(int i=0; i<completedTimes.size();i++){
-            if(medicineSchedule.getTime()==completedTimes.get(position).getTime_string()){
+        for(int i=0; i<medicineScheduleArrayList.size();i++){
+            if(medicine.getTime().equals(medicineScheduleArrayList.get(position).getTime())){
                 flag=true;
                 break;
             }
@@ -53,7 +53,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
         } else {
 
-            if (medicineSchedule.getTime().compareToIgnoreCase(Calendar.getInstance().getTime().toString()) >= 0) {
+            if (medicine.getTime_string().compareToIgnoreCase(Calendar.getInstance().getTime().toString()) >= 0) {
                 //not taken
                 holder.ibStatus.setImageResource(R.drawable.yellow_circle);
             } else {
@@ -65,7 +65,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
     @Override
     public int getItemCount() {
-        return medicineScheduleArrayList.size();
+        return completedTimes.size();
     }
 
     class ScheduleHolder extends RecyclerView.ViewHolder{

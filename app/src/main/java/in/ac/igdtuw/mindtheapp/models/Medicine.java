@@ -108,4 +108,51 @@ public class Medicine {
             return time;
         }
     }
+
+    public static class MedicineSchedule{
+        long time_id;
+        long medicine_id;
+        String date_string;
+        String medicine_name;
+        String time;
+        Date date;
+
+        public MedicineSchedule(long time_id, long medicine_id, String date_string, String medicine_name, String time) {
+            this.time_id = time_id;
+            this.medicine_id = medicine_id;
+            this.medicine_name = medicine_name;
+            this.time = time;
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+            try {
+                this.date = formatter.parse(date_string);
+                this.date_string = this.date.toString();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public long getTime_id() {
+            return time_id;
+        }
+
+        public long getMedicine_id() {
+            return medicine_id;
+        }
+
+        public String getDate_string() {
+            return date_string;
+        }
+
+        public String getMedicine_name() {
+            return medicine_name;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public Date getDate() {
+            return date;
+        }
+    }
 }

@@ -67,7 +67,7 @@ public class AbstractDBAdapter implements DatabaseContract{
         close();
     }
 
-    public Medicine getMedicine(int id){
+    public Medicine getMedicine(long id){
         String selectQuery = "SELECT  * FROM " + TABLE_NAME_MEDICINE + " WHERE " + COLUMN_NAME_MEDICINE_ID + " = " + id;
         Medicine medicine = null;
 
@@ -93,7 +93,7 @@ public class AbstractDBAdapter implements DatabaseContract{
         return medicine;
     }
 
-    public ArrayList<Medicine.Time> getTimesByMedicine(int medicine_id){
+    public ArrayList<Medicine.Time> getTimesByMedicine(long medicine_id){
         String selectQuery = "SELECT  * FROM " + TABLE_NAME_TIME + " WHERE " + COLUMN_NAME_FOREIGN_MEDICINE_ID + " = " + medicine_id;
         ArrayList<Medicine.Time> times = new ArrayList<>();
 
@@ -114,7 +114,7 @@ public class AbstractDBAdapter implements DatabaseContract{
         return times;
     }
 
-    public Medicine.Time getTime(int id){
+    public Medicine.Time getTime(long id){
         String selectQuery = "SELECT  * FROM " + TABLE_NAME_TIME + " WHERE " + COLUMN_NAME_FOREIGN_MEDICINE_ID + " = " + id;
         Medicine.Time time = null;
 
@@ -132,7 +132,7 @@ public class AbstractDBAdapter implements DatabaseContract{
         return time;
     }
 
-    public boolean deleteMedicine(int id){
+    public boolean deleteMedicine(long id){
         open();
         boolean deleted = mDatabase.delete(TABLE_NAME_MEDICINE, COLUMN_NAME_MEDICINE_ID + "=" + id, null) > 0;
         deleted &= mDatabase.delete(TABLE_NAME_TIME, COLUMN_NAME_FOREIGN_MEDICINE_ID + "=" + id, null) > 0;
@@ -140,7 +140,7 @@ public class AbstractDBAdapter implements DatabaseContract{
         return deleted;
     }
 
-    public boolean deleteTime(int id){
+    public boolean deleteTime(long id){
         open();
         boolean deleted = mDatabase.delete(TABLE_NAME_TIME, COLUMN_NAME_TIME_ID + "=" + id, null) > 0;
         close();

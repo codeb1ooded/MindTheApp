@@ -18,7 +18,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/TvMedicineName"
+                android:id="@+id/tvMedicineName"
                 android:layout_width="0dp"
                 android:layout_weight="9"
                 android:layout_height="match_parent"
@@ -27,7 +27,7 @@
                 android:textColor="@android:color/black"/>
 
             <ImageButton
-                android:id="@+id/IbDeleteMedicine"
+                android:id="@+id/ibDeleteMedicine"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

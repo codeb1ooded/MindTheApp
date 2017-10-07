@@ -11,4 +11,6 @@
     <string name="medicines_per_day">Medicines per day</string>
     <string name="out_of">Out of</string>
     <string name="time">Time</string>
+    <string name="schedule">Schedule</string>
+    <string name="medicines">Medicines</string>
 </resources>

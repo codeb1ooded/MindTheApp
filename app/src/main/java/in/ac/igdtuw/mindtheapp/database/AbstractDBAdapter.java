@@ -81,6 +81,11 @@ public class AbstractDBAdapter implements DatabaseContract{
         close();
     }
 
+    // TODO: 7/10/17 getAllMedicines
+    public ArrayList<Medicine> getAllMedicines(){
+        return null;
+    }
+
     public Medicine getMedicine(long id){
         String selectQuery = "SELECT  * FROM " + TABLE_NAME_MEDICINE + " WHERE " + COLUMN_NAME_MEDICINE_ID + " = " + id;
         Medicine medicine = null;

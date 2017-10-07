@@ -22,6 +22,11 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicinesAdapter.Medi
     ArrayList<Medicine> medicineArrayList;
     AbstractDBAdapter abstractDBAdapter=new AbstractDBAdapter(context);
 
+    public MedicinesAdapter(Context context, ArrayList<Medicine> medicineArrayList) {
+        this.context = context;
+        this.medicineArrayList = medicineArrayList;
+    }
+
     @Override
     public MedicinesHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         MedicinesHolder medicinesHolder=new MedicinesHolder(LayoutInflater.from(context).inflate(R.layout.single_row_medicine,parent,false));

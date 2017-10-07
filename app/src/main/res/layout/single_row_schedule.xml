@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
     <ImageButton
-        android:id="@+id/IbStatus"
+        android:id="@+id/ibStatus"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:src="@drawable/yellow_circle"
@@ -13,7 +13,7 @@
         />
 
     <TextView
-        android:id="@+id/TvTime"
+        android:id="@+id/tvTime"
         android:layout_width="0dp"
         android:layout_weight="6"
         android:layout_height="match_parent"

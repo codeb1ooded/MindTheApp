@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">MindTheApp</string>
+    <string name="medicines_you_take">Medicines you take</string>
+    <string name="medicine_name">Medicine name</string>
+    <string name="medicines_left">Medicines left :</string>
+    <string name="medicine_description">Medicine Description</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="date">Date</string>
+    <string name="medicines_per_day">Medicines per day</string>
+    <string name="out_of">Out of</string>
+    <string name="time">Time</string>
 </resources>

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class MedicinesFragment extends Fragment implements View.OnClickListener{
     MedicinesAdapter medicinesAdapter;
     ArrayList<Medicine> medicineArrayList;
     AbstractDBAdapter abstractDBAdapter;
+    Button btnPieChart;
     public MedicinesFragment() {
         // Required empty public constructor
     }
@@ -38,6 +40,7 @@ public class MedicinesFragment extends Fragment implements View.OnClickListener{
 
         fabAddMedicine = v.findViewById(R.id.fabAddMedicine);
         recViewMedicines= v.findViewById(R.id.recViewMedicines);
+        btnPieChart=v.findViewById(R.id.btnPieChart);
         abstractDBAdapter=new AbstractDBAdapter(getContext());
 
         medicineArrayList=new ArrayList<>();
@@ -47,6 +50,7 @@ public class MedicinesFragment extends Fragment implements View.OnClickListener{
         recViewMedicines.setLayoutManager(new LinearLayoutManager(getContext()));
         recViewMedicines.setAdapter(medicinesAdapter);
         fabAddMedicine.setOnClickListener(this);
+        btnPieChart.setOnClickListener(this);
         return v;
     }
 

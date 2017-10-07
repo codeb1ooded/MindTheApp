@@ -1,12 +1,14 @@
 package in.ac.igdtuw.mindtheapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -20,7 +22,7 @@ import in.ac.igdtuw.mindtheapp.models.Medicine;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ScheduleFragment extends AppCompatActivity {
+public class ScheduleFragment extends AppCompatActivity implements View.OnClickListener {
 
     TextView tvDate,tvMedLeft,tvTotalMed;
     RecyclerView recViewSchedule;
@@ -56,6 +58,14 @@ public class ScheduleFragment extends AppCompatActivity {
 
 
         recViewSchedule.setAdapter(new ScheduleAdapter(medicineScheduleArrayList,completedTimes,this));
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId()==R.id.btnPieChart){
+            Intent intent=new Intent(this,PieChart.class);
+            startActivity(intent);
+        }
     }
 
 //    @Override

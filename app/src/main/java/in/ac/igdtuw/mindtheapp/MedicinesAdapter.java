@@ -32,7 +32,6 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicinesAdapter.Medi
     @Override
     public MedicinesHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         MedicinesHolder medicinesHolder=new MedicinesHolder(LayoutInflater.from(context).inflate(R.layout.single_row_medicine,parent,false));
-
         return medicinesHolder;
     }
 
@@ -68,9 +67,9 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicinesAdapter.Medi
         ImageButton ibDeleteMedicine;
         public MedicinesHolder(View itemView) {
             super(itemView);
+            cardViewMedicine=itemView.findViewById(R.id.cardViewMedicine);
             tVMedicineName=itemView.findViewById(R.id.tvMedicineName);
             ibDeleteMedicine=itemView.findViewById(R.id.ibDeleteMedicine);
-            cardViewMedicine=itemView.findViewById(R.id.cardViewMedicine);
         }
     }
 }

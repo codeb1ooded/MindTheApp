@@ -52,10 +52,11 @@ public class ScheduleFragment extends AppCompatActivity implements View.OnClickL
        // medicineScheduleArrayList = abstractDBAdapter.getScheduleOfMedicine()
 
         Calendar c=Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd+MMM-yyyy");
         String formattedDate = df.format(c.getTime());
-//        medicineScheduleArrayList.addAll(abstractDBAdapter.getScheduleOfMedicine(medicine.getId(),formattedDate));
 
+        medicineScheduleArrayList = abstractDBAdapter.getScheduleOfMedicine(medicine.getId(),formattedDate);
+        completedTimes = abstractDBAdapter.getTimesByMedicine(medicine.getId());
 
         recViewSchedule.setAdapter(new ScheduleAdapter(medicineScheduleArrayList,completedTimes,this));
     }

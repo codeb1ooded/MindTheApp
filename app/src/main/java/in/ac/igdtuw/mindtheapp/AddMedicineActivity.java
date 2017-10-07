@@ -110,7 +110,7 @@ public class AddMedicineActivity extends AppCompatActivity {
                 for(String s: times){
                     database.insertTime(new Medicine.Time(database.getNextTimeId(), id, s));
                 }
-                //AddMedicineActivity.this.finish();
+                AddMedicineActivity.this.finish();
             }
         });
     }

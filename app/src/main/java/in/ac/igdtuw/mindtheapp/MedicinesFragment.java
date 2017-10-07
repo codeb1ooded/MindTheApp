@@ -1,6 +1,7 @@
 package in.ac.igdtuw.mindtheapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -39,6 +40,7 @@ public class MedicinesFragment extends Fragment implements View.OnClickListener{
         recViewMedicines= v.findViewById(R.id.recViewMedicines);
         abstractDBAdapter=new AbstractDBAdapter(getContext());
 
+        medicineArrayList=new ArrayList<>();
         medicineArrayList.addAll(abstractDBAdapter.getAllMedicines());
 
         medicinesAdapter=new MedicinesAdapter(getContext(),medicineArrayList);
@@ -51,7 +53,9 @@ public class MedicinesFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         if(view.getId()==R.id.fabAddMedicine){
-//            Intent intent=new Intent()
+            Intent intent=new Intent(getActivity(),AddMedicineActivity.class);
+            startActivity(intent);
+
         }
     }
 }

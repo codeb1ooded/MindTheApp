@@ -99,7 +99,7 @@ public class AbstractDBAdapter implements DatabaseContract{
                     null );
             medicines.add(medicine);
         }
-        return null;
+        return medicines;
     }
 
     public Medicine getMedicine(long id){

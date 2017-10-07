@@ -51,6 +51,7 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicinesAdapter.Medi
             public void onClick(View view) {
                 Intent intent=new Intent();
                 intent.setClass(context, ScheduleFragment.class);
+                intent.putExtra("data", medicine);
                 context.startActivity(intent);
             }
         });

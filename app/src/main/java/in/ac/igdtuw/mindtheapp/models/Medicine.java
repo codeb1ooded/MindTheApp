@@ -2,6 +2,7 @@ package in.ac.igdtuw.mindtheapp.models;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.Date;
  * Created by megha on 07/10/17.
  */
 
-public class Medicine {
+public class Medicine implements Serializable{
 
     long id;
     String name;

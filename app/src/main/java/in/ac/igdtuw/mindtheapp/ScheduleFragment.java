@@ -39,17 +39,20 @@ public class ScheduleFragment extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.fragment_schedule);
         tvDate= (TextView) findViewById(R.id.tvDate);
         recViewSchedule= (RecyclerView) findViewById(R.id.recViewSchedule);
         abstractDBAdapter=new AbstractDBAdapter(this);
-
+        Medicine medicine = (Medicine) getIntent().getSerializableExtra("data");
+;
         recViewSchedule.setLayoutManager(new LinearLayoutManager(this));
+
+       // medicineScheduleArrayList = abstractDBAdapter.getScheduleOfMedicine()
 
         Calendar c=Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String formattedDate = df.format(c.getTime());
-//        medicineScheduleArrayList.addAll(abstractDBAdapter.getScheduleOfMedicine(1,formattedDate));
+//        medicineScheduleArrayList.addAll(abstractDBAdapter.getScheduleOfMedicine(medicine.getId(),formattedDate));
 
 
         recViewSchedule.setAdapter(new ScheduleAdapter(medicineScheduleArrayList,completedTimes,this));

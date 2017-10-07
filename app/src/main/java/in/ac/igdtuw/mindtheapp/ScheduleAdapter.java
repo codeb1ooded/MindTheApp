@@ -26,8 +26,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     Context context;
 
     public ScheduleAdapter(ArrayList<MedicineSchedule> medicineScheduleArrayList, ArrayList<Medicine.Time> completedTimes, Context context) {
-        this.medicineScheduleArrayList = medicineScheduleArrayList;
-        this.completedTimes = completedTimes;
+        this.medicineScheduleArrayList = new ArrayList<>();
+        this.completedTimes = new ArrayList<>();
         this.context = context;
     }
 
